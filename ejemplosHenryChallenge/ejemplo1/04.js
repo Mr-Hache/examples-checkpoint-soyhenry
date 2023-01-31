@@ -17,14 +17,14 @@ function obtenerSoloLosMejores(estudiantes, nota1, nota2) {
   // obtenerSoloLosMejores(estudiantes, 15, 15); retorna => ["Fulanito Rodriguez", "Perengano Leiria"];
   //
   // Tu código:
-  var a = [];
-  for (i = 0; i < estudiantes.length; i++){
-    if ((estudiantes[i].check1 >= nota1) && (estudiantes[i].check2 >= nota2)){
-      a.push(estudiantes[i].nombre + ' ' +estudiantes[i].apellido);
+  let estudiantesApropabos = [];
+  estudiantes.forEach((estudiante) => {
+    if (estudiante.check1 >= nota1 && estudiante.check2 >= nota2) {
+      estudiantesApropabos.push(estudiante.nombre + " " + estudiante.apellido);
     }
-  }
-  return a;
-};
+  });
+  return estudiantesApropabos;
+}
 // No modifiques nada debajo de esta linea //
 
-module.exports = obtenerSoloLosMejores
+module.exports = obtenerSoloLosMejores;

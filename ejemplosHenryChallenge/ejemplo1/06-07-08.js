@@ -12,11 +12,12 @@ function crearClaseAlumno() {
           // Inicializar las propiedades del alumno con los valores recibidos como argumento.
           //
           // Tu código:
-            this.nombre = nombre;
-            this.apellido = apellido;
-            this.cohorte = cohorte;
-            this.grupoDeAmigos = grupoDeAmigos;
-            this.notasCheckpoints = notasCheckpoints; 
+          this.nombre = nombre;
+          this.apellido = apellido;
+          this.cohorte = cohorte;
+          this.grupoDeAmigos = grupoDeAmigos;
+          this.notasCheckpoints = notasCheckpoints;
+            
         };
 
         addAmigos(nombre, apellido) {
@@ -27,20 +28,15 @@ function crearClaseAlumno() {
           // No debe retornar nada.
           //
           // Tu código:
-            var a = this.cohorte;
-            var Amigo = {
-                nombre: nombre,
-                apellido: apellido,
-                cohorte:a
-            } 
-            this.grupoDeAmigos.push(Amigo);
+          this.grupoDeAmigos.push({nombre: nombre, apellido: apellido, cohorte: this.cohorte});
+            
         };
 
         obtenerAmigos() {
           // Este método debe devolver la cantidad de amigos que tiene el alumno.
           //
           // Tu código:
-            return this.grupoDeAmigos.length;
+           return this.grupoDeAmigos.length;
         };
 
 
@@ -49,16 +45,15 @@ function crearClaseAlumno() {
           // No debe retornar nada.
           //
           // Tu código:
-            this.notasCheckpoints.push(nota);
+          this.notasCheckpoints.push(nota);
+            
         };
 
         obtenerNotas() {
           // Este método debe devolver un array con las notas del alumno.
           //
           // Tu código:
-          var array = []
-          array = this.notasCheckpoints;
-          return array;
+       return this.notasCheckpoints;
         };
 
         presentacion() {
@@ -68,11 +63,11 @@ function crearClaseAlumno() {
           // "Hola, soy el alumno Lionel Messi del cohorte 13";
           //
           // Tu código:
-            return 'Hola, soy el alumno ' + this.nombre + ' ' + this.apellido + ' del cohorte ' + this.cohorte;
-        };
+           return "Hola, soy el alumno " + this.nombre + " " + this.apellido + " del cohorte " + this.cohorte;
     };
 
-    return Alumno;
+  }
+  return Alumno;
 };
 // No modifiques nada debajo de esta linea //
 

@@ -13,17 +13,14 @@ function buscaDestruye(arreglo, num) {
   // Ej: buscaDestruye([1, 2, 3, 4, 1], 1) devuelve => [2, 3, 4]
   //
   // Tu código aca:
-  var a = [];
-  for (i = 0; i < arreglo.length; i++){
-    if (arreglo[i] === num){
-      a.push(i);
+  let result = [];
+  arreglo.forEach((numero) => {
+    if (numero !== num) {
+      result.push(numero);
     }
-  } 
-  for (i = 0; i < a.length; i++){
-    arreglo.splice((a[i] - i) , 1);
-  }
-    return arreglo;
-};
+  });
+  return result;
+}
 // No modifiques nada debajo de esta linea //
 
-module.exports = buscaDestruye
+module.exports = buscaDestruye;

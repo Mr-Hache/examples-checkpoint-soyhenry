@@ -8,7 +8,7 @@ function ingredienteEnMalEstado(menu, comida, ingrediente) {
   // El ingrediente de cierta comida está en mal estado. Hay que sacar los ingredientes próximos a éste,
   // ya que deben estar contaminados también.
   // La funcion recibe un objeto "menu" que contiene las comidas del día. "comida" es un array de ingredientes.
-  // Si "ingrediente" está en el array, devolver un array con el ingrediente y los elementos en un índice de 
+  // Si "ingrediente" está en el array, devolver un array con el ingrediente y los elementos en un índice de
   // diferencia.
   // Ej:
   /* let menuDelDia = {
@@ -22,23 +22,43 @@ function ingredienteEnMalEstado(menu, comida, ingrediente) {
   // NOTA: No utilizar el método "includes".
   //
   // Tu código:
-
-  var a = [];
-  for (i = 0; i < menu[comida].length; i++){
-    if(ingrediente === menu[comida][i]){
-      a[0] = menu[comida][i - 1];
-      a[1] = menu[comida][i];
-      a[2] = menu[comida][i + 1];
+  let objComida = [];
+  let malEstado = [];
+  for (let key in menu) {
+    if (key === comida) {
+      objComida = menu[key];
     }
   }
-  if (a.length === 3){
-    return a;
+  for (let i = 0; i < objComida.length; i++) {
+    switch (i) {
+      case 0:
+        if (objComida[i] === ingrediente) {
+          malEstado.push(objComida[i]);
+          malEstado.push(objComida[i + 1]);
+        }
+
+      case objComida.length - 1:
+        if (objComida[i] === ingrediente) {
+          malEstado.push(objComida[i - 1]);
+          malEstado.push(objComida[i]);
+        }
+        break;
+      default:
+        if (objComida[i] === ingrediente) {
+          malEstado.push(objComida[i - 1]);
+          malEstado.push(objComida[i]);
+          malEstado.push(objComida[i + 1]);
+        }
+        break;
+    }
   }
-  else{
-    return 'El menú está perfecto';
+  if (malEstado.length === 0) {
+    return "El menú está perfecto";
+  } else {
+    return malEstado;
   }
-};
+}
 
 // No modifiques nada debajo de esta linea //
 
-module.exports = ingredienteEnMalEstado
+module.exports = ingredienteEnMalEstado;

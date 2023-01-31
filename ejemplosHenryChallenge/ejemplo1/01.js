@@ -9,21 +9,18 @@ function mayorMenosMenor(arr) {
   // NOTA: No utilizar los métodos "min" y "max" de "Math".
   //
   // Tu código:
-  var rest = 0;
-  var minimo = arr[0];
-  var maximo = 0;
-
-  for (i = 0; i < arr.length; i++){
-      if(arr[i] > maximo){
-      maximo = arr[i];
+  let min = arr[0];
+  let max = arr[0];
+  arr.forEach((num) => {
+    if (num < min) {
+      min = num;
     }
-    if(arr[i] < minimo){
-      minimo = arr[i];
+    if (num > max) {
+      max = num;
     }
-  }
-  rest = maximo - minimo;
-  return rest;
-};
+  });
+  return max - min;
+}
 // No modifiques nada debajo de esta linea //
 
-module.exports = mayorMenosMenor
+module.exports = mayorMenosMenor;

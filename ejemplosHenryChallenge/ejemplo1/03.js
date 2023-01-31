@@ -6,7 +6,7 @@
 */
 function bienvenidoSr(persona) {
   // La funcion recibe un objeto "persona".
-  // de la forma: 
+  // de la forma:
   // {
   //  nombre: 'Lionel
   //  apellido: 'Messi',
@@ -22,22 +22,22 @@ function bienvenidoSr(persona) {
   // "Disculpe señor, no está invitado a la fiesta".
   //
   // Tu código:
-  
-  if (persona.invitado){
-    if (persona.nombre && persona.apellido) {
-      return persona.nombre + ' ' + persona.apellido +', un gusto tenerlo nuevamente! Bienvenido';
-    } 
-    else if (!persona.nombre && persona.apellido){
-      return 'Bienvenido Sr. ' + persona.apellido;
-    }
-    else if (persona.nombre && !persona.apellido){
-      return 'Hola ' + persona.nombre + ', tu mesa está lista';
-    }
+
+  if (persona.invitado && persona.nombre && persona.apellido) {
+    return (
+      persona.nombre +
+      " " +
+      persona.apellido +
+      ", un gusto tenerlo nuevamente! Bienvenido"
+    );
+  } else if (persona.invitado && persona.nombre && !persona.apellido) {
+    return "Hola " + persona.nombre + ", tu mesa está lista";
+  } else if (persona.invitado && !persona.nombre && persona.apellido) {
+    return "Bienvenido Sr. " + persona.apellido;
+  } else {
+    return "Disculpe señor, no está invitado a la fiesta";
   }
-  else{
-    return 'Disculpe señor, no está invitado a la fiesta'
-  }
-};
+}
 // No modifiques nada debajo de esta linea //
 
-module.exports = bienvenidoSr
+module.exports = bienvenidoSr;
