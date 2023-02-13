@@ -182,6 +182,9 @@ describe('Checkpoint Tests', function() {
     it('Debe devolver un arregle vacío si el argumento recibido es un array vacío', function() {
       expect(selectionSort([])).to.deep.equal([]);
     });
+    it('Debe devolver un arregle vacío si el argumento recibido es un array vacío', function() {
+      expect(selectionSort([])).to.deep.equal([]);
+    });
   });
 
 
@@ -194,9 +197,7 @@ describe('Checkpoint Tests', function() {
       expect(sumaDiez(2)).to.equal(12);
       expect(sumaDiez(11)).to.equal(21);
     });
-    it('Debe devolver un arregle vacío si el argumento recibido es un array vacío', function() {
-      expect(selectionSort([])).to.deep.equal([]);
-    });
+    
   });
 
   describe('EXTRA CREDIT: allAnagrams', function() {

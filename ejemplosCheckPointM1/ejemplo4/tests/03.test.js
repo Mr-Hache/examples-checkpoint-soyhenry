@@ -1,32 +1,45 @@
-const { casasPorAño } = require("../checkpoint/03");
-describe("Ejercicio 03 - casasPorAño", () => {
-  let n;
-  let data = {
-    0: 0,
-    1: 30,
-    2: 60,
-    3: 90,
-    4: 120,
-    5: 150,
-    6: 180,
-    7: 210,
-    8: 240,
-    9: 270,
-  };
-  beforeEach(() => {
-    n = Math.floor(Math.random() * 10);
-  });
+const { apilarCajas } = require("../Checkpoint/03");
+const { Stack } = require("../DS");
 
-  test("La función debe obtener la cantidad de casas por año de forma recursiva.", () => {
-    expect(casasPorAño(3)).toEqual(90);
-    expect(casasPorAño(n)).toEqual(data[n]);
+describe("Ejercicio 03 - apilarCajas", () => {
+  test("En caso de recibir un array vacío, debe retornar el string 'Error'", () => {
+    expect(apilarCajas([])).toEqual("Error");
   });
-  test("Si el valor de n recibido por parámetro es menor a 0, debe retornar false", () => {
-    expect(casasPorAño(-1)).toEqual(false);
-    expect(casasPorAño(-2)).toEqual(false);
-    expect(casasPorAño(-3)).toEqual(false);
+  test("El Stack que retorna debe ser una instancia de la clase Stack", () => {
+    expect(
+      apilarCajas([
+        { nombre: "leche", peso: 30 },
+        { nombre: "fideos", peso: 15 },
+      ]) instanceof Stack
+    ).toEqual(true);
   });
-  test("Si el valor de n recibido por parámetro es 1, debe retornar 30.", () => {
-    expect(casasPorAño(1)).toEqual(30);
+  test("La función debe crear y retornar el Stack creado con las cajas de productos recibidas en el array", () => {
+    expect(
+      apilarCajas([
+        { nombre: "leche", peso: 30 },
+        { nombre: "fideos", peso: 15 },
+      ])
+    ).toEqual({ array: ["leche", "fideos"] });
+    expect(
+      apilarCajas([
+        { nombre: "gaseosa", peso: 40 },
+        { nombre: "arroz", peso: 5 },
+      ])
+    ).toEqual({ array: ["gaseosa", "arroz"] });
+  });
+  test("En caso de exceder el peso máximo permitido, debe retornar en string 'No se puede crear la pila'", () => {
+    expect(
+      apilarCajas([
+        { nombre: "leche", peso: 30 },
+        { nombre: "fideos", peso: 25 },
+      ])
+    ).toEqual("No se puede crear la pila");
+    expect(
+      apilarCajas([
+        { nombre: "gaseosa", peso: 40 },
+        { nombre: "arroz", peso: 5 },
+        { nombre: "otro", peso: 10 },
+      ])
+    ).toEqual("No se puede crear la pila");
   });
 });

@@ -21,17 +21,24 @@ const { Stack } = require("./DS");
 //   ✔️crearStack("RET****ORNA**R*FA*L**SO") => "Stack vacío"
 
 function crearStack(palabra) {
+  if (palabra.length == 0) {
+    return false;
+  }
+  palabra = palabra.split("");
+  let stack = new Stack();
+  for (let i = 0; i < palabra.length; i++) {
+    if (palabra[i] == "*" && stack.size() == 0) {
+      return "Stack vacío";
+    } else if (palabra[i] == "*") {
+      stack.pop();
+    } else {
+      stack.push(palabra[i]);
+    }
+  }
+  return stack;
+}
 
-   
-
-
- }
-
-    
- 
- 
-
- //PEDIENTE -------> 
+//PEDIENTE ------->
 
 // ⚠️ NO MODIFICAR NADA POR DEBAJO DE ESTA LÍNEA ⚠️
 module.exports = { crearStack };

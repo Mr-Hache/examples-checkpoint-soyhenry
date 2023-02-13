@@ -1,87 +1,47 @@
-const { BinarySearchTree } = require("../checkpoint/09");
+const { BinarySearchTree } = require("../Checkpoint/09");
 
-const miArbol1 = new BinarySearchTree(13);
+const miArbol1 = new BinarySearchTree(17);
 
 miArbol1.insert(7);
 miArbol1.insert(24);
-miArbol1.insert(27);
-miArbol1.insert(16);
-miArbol1.insert(6);
+miArbol1.insert(32);
+miArbol1.insert(18);
 miArbol1.insert(3);
+miArbol1.insert(15);
 miArbol1.insert(4);
 miArbol1.insert(45);
 
-// Este árbol equivale a:
-//             13
-//          /      \
-//        7         24
-//      /          /   \
-//     6         16     27
-//   /                    \
-//  3                     45
-//   \
-//    4
+const miArbol2 = new BinarySearchTree(89);
 
-const miArbol2 = new BinarySearchTree(20);
-
-miArbol2.insert(30);
+miArbol2.insert(17);
+miArbol2.insert(28);
 miArbol2.insert(35);
-miArbol2.insert(25);
-miArbol2.insert(15);
-miArbol2.insert(18);
-miArbol2.insert(6);
-miArbol2.insert(3);
-miArbol2.insert(4);
-miArbol2.insert(8);
+miArbol2.insert(20);
+miArbol2.insert(34);
+miArbol2.insert(84);
+miArbol2.insert(88);
+miArbol2.insert(55);
 
-// Este otro equivale a:
-//                 20
-//              /      \
-//            15         30
-//          /   \       /  \
-//         6    18     25   35                                      
-//       /   \
-//      3     8
-//       \
-//        4
-
-const miArbol3 = new BinarySearchTree(30);
-
-miArbol3.insert(14);
-miArbol3.insert(11);
-miArbol3.insert(9);
-miArbol3.insert(6);
-miArbol3.insert(3);
-miArbol3.insert(1);
-miArbol3.insert(38);
-miArbol3.insert(56);
-miArbol3.insert(78);
-miArbol3.insert(89);
-
-// y este último equivale a:
-//                   30
-//                /      \
-//              14        38
-//             /            \
-//           11              56                                      
-//          /                 \
-//         9                   78
-//        /                      \
-//       6                        89
-//      /
-//     3  
-//    /
-//   1
-
-xdescribe("Ejercicio 09 - BinarySearchTree.getHouseValues", () => {
-  test("Debería retornar la suma de todos los valores de las ramas izquierda", () => {
-    expect(miArbol1.getHouseValues("left")).toEqual(16);
-    expect(miArbol2.getHouseValues("left")).toEqual(24);
-    expect(miArbol3.getHouseValues("left")).toEqual(44);
+describe("Ejercicio 09 - searchPrice", () => {
+  test("En caso de recibir por parámetro un precio igual o menor a 0 (cero), debe retornar el string 'Error'", () => {
+    expect(miArbol1.searchPrice(0)).toEqual("Error");
+    expect(miArbol1.searchPrice(-1)).toEqual("Error");
+    expect(miArbol1.searchPrice(-10)).toEqual("Error");
   });
-  test("Debería retornar la suma de todos los valores de las ramas derecha", () => {
-    expect(miArbol1.getHouseValues("right")).toEqual(96);
-    expect(miArbol2.getHouseValues("right")).toEqual(65);
-    expect(miArbol3.getHouseValues("right")).toEqual(261);
+  test("En caso de encontrar el número buscando en el árbol, la función debe retornar true", () => {
+    expect(miArbol1.searchPrice(7)).toEqual(true);
+    expect(miArbol1.searchPrice(18)).toEqual(true);
+    expect(miArbol1.searchPrice(3)).toEqual(true);
+    expect(miArbol2.searchPrice(89)).toEqual(true);
+    expect(miArbol2.searchPrice(55)).toEqual(true);
+    expect(miArbol2.searchPrice(20)).toEqual(true);
+  });
+  test("En caso de NO encontrar el número buscando en el árbol, la función debe retornar false", () => {
+    expect(miArbol1.searchPrice(8)).toEqual(false);
+    expect(miArbol1.searchPrice(19)).toEqual(false);
+    expect(miArbol1.searchPrice(31)).toEqual(false);
+    expect(miArbol2.searchPrice(90)).toEqual(false);
+    expect(miArbol2.searchPrice(56)).toEqual(false);
+    expect(miArbol2.searchPrice(2)).toEqual(false);
   });
 });

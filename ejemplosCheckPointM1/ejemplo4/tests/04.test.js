@@ -1,41 +1,29 @@
-const { construccionCasas } = require("../checkpoint/04");
+const { devuelveMayores } = require("../Checkpoint/04");
+const { LinkedList } = require("../DS");
+const lista1 = new LinkedList();
+lista1.add(5);
+lista1.add(10);
+lista1.add(8);
+lista1.add(7);
+lista1.add(14);
+lista1.add(20);
 
-describe("Ejercicio 04 - construccionCasas", () => {
-  test("En caso de que la cantidad de casas que recibimos es 0 o menor, retornar 'Por favor ingresar cuantas casas quieres construir'", () => {
-    let construcciones = construccionCasas(50);
-    expect(construcciones(0)).toEqual(
-      "Por favor ingresar cuantas casas quieres construir"
-    );
-    expect(construcciones(-10)).toEqual(
-      "Por favor ingresar cuantas casas quieres construir"
-    );
+const lista2 = new LinkedList();
+lista2.add(99);
+lista2.add(100);
+lista2.add(81);
+lista2.add(74);
+lista2.add(14);
+lista2.add(22);
+
+describe("Ejercicio 04 - devuelveMayores", () => {
+  test("La función debe retornar un valor numérico, que representa la CANTIDAD DE PRECIOS que superen el valor a evaluar", () => {
+    expect(devuelveMayores(lista1, 10)).toEqual(2);
+    expect(devuelveMayores(lista2, 50)).toEqual(4);
+    expect(devuelveMayores(lista2, 10)).toEqual(6);
   });
-  test("En caso de que las bolsas sean insuficiente para crear aunque sea una casa, retornar 'No se puede construir casas con esa cantidad de bolsas'", () => {
-    let construcciones = construccionCasas(9);
-    let construcciones2 = construccionCasas(4);
-    expect(construcciones(1)).toEqual(
-      "No se puede construir casas con esa cantidad de bolsas"
-    );
-    expect(construcciones2(1)).toEqual(
-      "No se puede construir casas con esa cantidad de bolsas"
-    );
-  });
-  test("En caso de que la cantidad de casas que recibimos sea mayor a la cantidad de bolsas, retornar 'No se puede construir casas con esa cantidad de bolsas'", () => {
-    let construcciones = construccionCasas(10);
-    expect(construcciones(11)).toEqual(
-      "Solo puedes construir esta cantidad de casas: 1"
-    );
-    let construcciones2 = construccionCasas(50);
-    expect(construcciones2(11)).toEqual(
-      "Solo puedes construir esta cantidad de casas: 5"
-    );
-  });
-  test("En caso de que la cantidad de casas sea igual a la cantidad de bolsas, retornar true", () => {
-    let construcciones = construccionCasas(10);
-    expect(construcciones(1)).toBe(true);
-    let construcciones2 = construccionCasas(50);
-    expect(construcciones2(5)).toBe(true);
+  test("En caso de que ningún precio supere dicho valor, debe retornar el string 'Sin precios'", () => {
+    expect(devuelveMayores(lista1, 1000)).toEqual("Sin precios");
+    expect(devuelveMayores(lista2, 5000)).toEqual("Sin precios");
   });
 });
-
-// ⚠️ NO MODIFICAR NADA POR ENCIMA DE ESTA LÍNEA ⚠️

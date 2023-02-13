@@ -1,29 +1,49 @@
-const { tipologiasSeparadas } = require("../checkpoint/05");
-const { Stack } = require("../DS");
+const { cobrarClientes } = require("../Checkpoint/05");
+const { Queue } = require("../DS");
+const clientes1 = new Queue();
+const clientes3 = new Queue();
 
-describe("Ejercicio 05 - tipologiasSeparadas", () => {
-  test("En caso de recibir un array vacio debe retornar 'Tipologias inexistentes'", () => {
-    expect(tipologiasSeparadas([])).toBe("Tipologias inexistentes");
+clientes1.enqueue({
+  nombre: "Jorge",
+  dinero: 1500,
+  precioProductos: 1000,
+});
+
+clientes1.enqueue({
+  nombre: "Mateo",
+  dinero: 2000,
+  precioProductos: 1900,
+});
+
+clientes1.enqueue({
+  nombre: "Mora",
+  dinero: 5000,
+  precioProductos: 5800,
+});
+
+clientes3.enqueue({
+  nombre: "Jorge",
+  dinero: 1500,
+  precioProductos: 1000,
+});
+
+clientes3.enqueue({
+  nombre: "Mateo",
+  dinero: 2000,
+  precioProductos: 1900,
+});
+
+clientes3.enqueue({
+  nombre: "Mora",
+  dinero: 5000,
+  precioProductos: 10,
+});
+
+describe("Ejercicio 05 - cobrarClientes", () => {
+  test("En caso de encontrarse con un cliente que no tiene dinero suficiente, debe dejar de evaluar clientes y retornar el array de los clientes que fueron quitados de la Queue", () => {
+    expect(cobrarClientes(clientes1)).toEqual(["Jorge", "Mateo"]);
   });
-  test("El Stack que retorna debe ser una instancia de la clase Stack", () => {
-    expect(
-      tipologiasSeparadas([14, 1, 10, 10, 7, 7, 3, 1, 5]) instanceof Stack
-    ).toEqual(true);
-  });
-  test("La función debe crear y retornar el Stack creado con las casas de forma correcta, sin tipologias repetidas . ", () => {
-    expect(tipologiasSeparadas([14, 1, 10, 10, 7, 7, 3, 1, 5])).toEqual({
-      array: [14, 1, 10, 7, 3, 1, 5, 10, 7],
-    });
-    expect(tipologiasSeparadas([14, 14, 2, 8, 5, 5, 3, 1, 5])).toEqual({
-      array: [14, 2, 8, 5, 3, 1, 5, 14, 5],
-    });
-  });
-  test("En caso de que no hayan tipologias repetidas debe retornar 'No hay tipologias repetidas'", () => {
-    expect(tipologiasSeparadas([1, 2, 3, 4, 5, 6, 7, 8, 9])).toBe(
-      "No hay tipologias repetidas"
-    );
-    expect(tipologiasSeparadas([1, 6, 14, 2, 5, 4, 3, 11, 7])).toBe(
-      "No hay tipologias repetidas"
-    );
+  test("En caso de quedarse sin clientes en la queue, debe retornar false", () => {
+    expect(cobrarClientes(clientes3)).toEqual(false);
   });
 });

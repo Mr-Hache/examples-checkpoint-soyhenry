@@ -1,6 +1,6 @@
-const { LinkedList } = require('./DS');
+const { LinkedList } = require("./DS");
 // No modifiques nada arriba de esta linea //
-  
+
 /*
 EJERCICIO 2
 Agregar el método simplifyList al prototipo de LinkedList. Este método deberá filtrar 
@@ -14,15 +14,39 @@ Ejemplo:
 ACLARACIÓN: Se debe reemplazar la lista original por la nueva.
 Pista: Podes usar el metodo search() ya incorporado dentro del prototype de LinkedList
   */
- 
-LinkedList.prototype.simplifyList = function (num) { 
+
+LinkedList.prototype.simplifyList = function (num) {
   // Tu código aca:
-    
-     
-    
-  } 
+  if (this.head === null) {
+    return false;
+  }
+  let array = [];
+  let current = this.head;
+  while (current) {
+    array.push(current.value);
+    current = current.next;
+  }
+  while (this.size() > 0) {
+    this.remove(this.head.value);
+  }
+  let sinRepetidos = new Set(array)
+sinRepetidos = Array.from(sinRepetidos)
+  while (sinRepetidos.length > 0) {
+    this.add(sinRepetidos.shift());
+  }
+};
+
+LinkedList.prototype.size = function () {
+  let current = this.head;
+  let size = 0;
+  while (current) {
+    size++;
+    current = current.next;
+  }
+  return size;
+};
 
 // No modifiques nada debajo de esta linea //
 module.exports = {
-  LinkedList
+  LinkedList,
 };

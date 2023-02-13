@@ -1,5 +1,5 @@
 function Queue() {
-  this.array = [];
+  this.array = []; 
 }
 
 Queue.prototype.enqueue = function(elemento) {

@@ -18,15 +18,16 @@
 // en caso de que sea igual a 10 retorna 10
 // y si el parametro numFijo es igual a null o undefined debe retornar un arreglo vacio.
 
-
 function mayorMenorOIgual(numFijo) {
   // Tu código aca:
-  
- 
+
+  return function (num) {
+    if (num + numFijo < 10) return "la suma es menor a 10";
+    if (num + numFijo > 10) return "la suma es mayor a 10";
+    if (num + numFijo === 10) return 10;
+    if (numFijo == null || numFijo == undefined) return [];
+  };
 }
-
-
-
 
 // No modifiques nada debajo de esta linea //
 

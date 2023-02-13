@@ -38,13 +38,12 @@ const { Queue, Node, LinkedList, BinarySearchTree } = require("./DS.js");
 // allí la recursión
 
 var objContains = function (obj, prop, value) {
-  if (obj.hasOwnProperty(prop) && obj[prop] === value) {
-    return true;
-  }
-
-  for (propiedad in obj) {
-    if (typeof obj[propiedad] === "object") {
-      return objContains(obj[propiedad], prop, value);
+  for (key in obj) {
+    if (typeof obj[key] === "object") {
+      return objContains(obj[key], prop, value);
+    }
+    if (key === prop && obj[key] === value) {
+      return true;
     }
   }
   return false;
@@ -61,18 +60,15 @@ var objContains = function (obj, prop, value) {
 // [Para más información del método: https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Array/isArray]
 
 var countArray = function (array) {
-  if (array.length < 0) {
-    return 0;
-  }
-  var acc = 0;
-  for (var i = 0; i < array.length; i++) {
-    if (!Array.isArray(array[i])) {
-      acc = acc + array[i];
+  let suma = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (Array.isArray(array[i])) {
+      suma += countArray(array[i]);
     } else {
-      return countArray(array[i]);
+      suma += array[i];
     }
   }
-  return acc;
+  return suma;
 };
 
 // ---------------------
@@ -92,11 +88,13 @@ var countArray = function (array) {
 //    lista.size(); --> 3
 
 LinkedList.prototype.size = function () {
-  if ((LinkedList.length = 0)) {
-    return 0;
-  } else {
-    return LinkedList.length;
+  let count = 0;
+  let current = this.head;
+  while (current) {
+    count++;
+    current = current.next;
   }
+  return count;
 };
 
 // EJERCICIO 4
@@ -116,16 +114,25 @@ LinkedList.prototype.size = function () {
 //    sin antes tener cargada la posición 0 y 1.
 
 LinkedList.prototype.addInPos = function (pos, value) {
-  var nodo = new Node(value);
-  var current = this.head;
-  if (!current) {
-    return false;
-  } else {
-    while (current.this.next !== pos) {
-      current = current.this.next;
-    }
-    current.this.next = nodo;
+  let current = this.head;
+  let count = 0;
+  let node = new Node(value);
+  let size = this.size();
+  if (pos > size + 1) return false;
+
+  if (!current && pos !== 0) return false;
+  if (!current && pos == 0) {
+    this.add(value);
+    return true;
   }
+  while (current && count < pos - 1) {
+    current = current.next;
+    count++;
+  }
+  let aux = current.next;
+  current.next = node;
+  node.next = aux;
+  return true;
 };
 
 // EJERCICIO 5
@@ -136,7 +143,17 @@ LinkedList.prototype.addInPos = function (pos, value) {
 //    Lista nueva luego de aplicar el reverse: Head --> 13 --> 10 --> 4 --> 1 --> null
 
 LinkedList.prototype.reverse = function () {
-  return NuevaLista;
+  let aux = [];
+  let current = this.head;
+  while (current) {
+    aux.push(current.value);
+    current = current.next;
+  }
+  let newList = new LinkedList();
+  for (let i = aux.length - 1; i >= 0; i--) {
+    newList.add(aux[i]);
+  }
+  return newList;
 };
 
 // ----------------------
@@ -165,22 +182,20 @@ LinkedList.prototype.reverse = function () {
 //    - mazoUserB = [6,9,10,3,6,4]
 
 var cardGame = function (mazoUserA, mazoUserB) {
-  for (i = 0; i < mazoUserA.length; i++) {
-    for (j = 0; i < mazoUserB.length; i++) {
-      if (mazoUserA[i] > mazoUserB[j]) {
-        mazoUserA.push(mazoUserA[i], mazoUserB[j]);
-      } else {
-        mazoUserB.push(mazoUserB[j], mazoUserA[i]);
-      }
+  while (mazoUserA.size() > 0 && mazoUserB.size() > 0) {
+    let cartaA = mazoUserA.dequeue();
+    let cartaB = mazoUserB.dequeue();
+    if (cartaA > cartaB) {
+      mazoUserA.enqueue(cartaA);
+      mazoUserA.enqueue(cartaB);
+    } else if (cartaB > cartaA) {
+      mazoUserB.enqueue(cartaB);
+      mazoUserB.enqueue(cartaA);
     }
   }
-  if (mazoUserA.length === mazoUserB.length) {
-    return "Game tie!";
-  } else if (mazoUserB.length === 0) {
-    return "A wins!";
-  } else if (mazoUserA.length === 0) {
-    return "B wins!";
-  }
+  if (mazoUserA.size() && !mazoUserB.size()) return "A wins!";
+  else if (mazoUserB.size() && !mazoUserA.size()) return "B wins!";
+  else return "Game tie!";
 };
 
 // ---------------
@@ -201,7 +216,13 @@ var cardGame = function (mazoUserA, mazoUserB) {
 //      \
 //       5
 
-var generateBST = function (array) {};
+var generateBST = function (array) {
+  let bst = new BinarySearchTree(array[0]);
+  for (let i = 1; i < array.length; i++) {
+    bst.insert(array[i]);
+  }
+  return bst;
+};
 
 // ---------------
 
@@ -218,13 +239,13 @@ var generateBST = function (array) {};
 //    [Donde 2 sería el número sobre el cuál queremos saber su posición en el array]
 
 var binarySearch = function (array, target) {
-  for (i = 0; i < array.length; i++) {
+  let indice = -1;
+  for (let i = 0; i < array.length; i++) {
     if (array[i] === target) {
-      return i;
-    } else {
-      return -1;
+      indice = i;
     }
   }
+  return indice;
 };
 
 // EJERCICIO 9
@@ -235,7 +256,22 @@ var binarySearch = function (array, target) {
 // Ejemplo:
 //     selectionSort([1, 6, 2, 5, 3, 4]) --> [1, 2, 3, 4, 5, 6]
 
-var selectionSort = function (array) {};
+var selectionSort = function (array) {
+  for (let i = 0; i < array.length + 1; i++) {
+    let min = i;
+    for (let j = i + 1; j < array.length; j++) {
+      if (array[j] < array[min]) {
+        min = j;
+      }
+    }
+    if (min !== i) {
+      let aux = array[i];
+      array[i] = array[min];
+      array[min] = aux;
+    }
+  }
+  return array;
+};
 
 // ----- Closures -----
 
@@ -252,12 +288,9 @@ var selectionSort = function (array) {};
 //    sumaDiez(11); --> Devolverá 21 (Ya que 11 + 10 = 21)
 
 function closureSum(numFijo) {
-  var contador = numFijo;
-  var suma = function (elem) {
-    contador = elem + numFijo;
-    return contador;
+  return function (num) {
+    return numFijo + num;
   };
-  return suma;
 }
 
 // -------------------
@@ -271,8 +304,34 @@ function closureSum(numFijo) {
 //    const anagrams = allAnagrams('abc');
 //    console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
 
-var allAnagrams = function (string, array, index) {};
+var allAnagrams = function (string) {
+  return distinct(permutaciones(string));
+};
+function permutaciones(string) { // esta funcion entrega la lista de permutaciones sin quitar las repetidas
+  if (typeof string !== "string") { // si la variable "string" no es un string lanza un error
+    throw new TypeError("El argumento debe ser un string");
+  }
+  if (string.length < 2) { // si la variable "string" tiene menos de 2 caracteres, retorna la misma variable
+    return string;
+  } else if (string.length === 2) { // si la variable "string" tiene dos caracteres devuelve un array con el mismo string y el string inverso
+    return [string, string[1] + string[0]];
+  }
+  var permutations = []; // array para guardar las permutaciones
+  for (var i = 0; i < string.length; i++) { // este for recorre cada caracter del string
+      var char = string[i]; // 
+      if (string.indexOf(char) != i) continue; // si el caracter ya fue usado, se salta el resto del ciclo
+      let remainingString = string.slice(0, i) + string.slice(i + 1, string.length); // crea un string con los caracteres restantes del string original
+      for (let subPermutation of permutaciones(remainingString)) { // este for recorre cada permutacion del string restante
+          permutations.push(char + subPermutation); // agrega la permutacion al array de permutaciones
+      }
+      }
+  return permutations; // retorna el array de permutaciones
+      
+ }
 
+function distinct(array) {
+  return [...new Set(array)];
+}
 module.exports = {
   objContains,
   countArray,

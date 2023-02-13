@@ -13,23 +13,37 @@ const { LinkedList } = require("./DS");
 
 LinkedList.prototype.sortList = function () {
   // Tu código aca:
-  let arr = [];
-  if (!this.head) return false;
-  if (this.head) {
-    arr.push(this.head.value);
-
-    let current = this.head;
-    while (current.next) {
-      arr.push(current.next.value);
-      current = current.next;
-    }
-
-    arr.sort((a, b) => b - a);
-    this.head = null;
-    for (let i = 0; i < arr.length; i++) {
-      this.add(arr[i]);
-    }
+  if (this.head === null) {
+    return false;
   }
+  let array = [];
+  let current = this.head;
+  while (current) {
+    array.push(current.value);
+    current = current.next;
+  }
+  while (this.size() > 0) {
+    this.remove(this.head.value);
+  }
+  array = array.sort((a, b) => {
+    // si a es mayor que b, retorna -1, si a es menor que b, retorna 1, si son iguales, retorna 0, sort ordena los numemeros segun lo que se retorne, -1 quiere decir que a debe ir antes que b, 1 quiere decir que b debe ir antes que a, 0 quiere decir que a y b son iguales...
+    if (a > b) return -1;
+    if (a < b) return 1;
+    if (a === b) return 0;
+  });
+  while (array.length > 0) {
+    this.add(array.shift());
+  }
+};
+
+LinkedList.prototype.size = function () {
+  let current = this.head;
+  let size = 0;
+  while (current) {
+    size++;
+    current = current.next;
+  }
+  return size;
 };
 
 // No modifiques nada debajo de esta linea //

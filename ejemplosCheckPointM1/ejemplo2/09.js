@@ -41,14 +41,25 @@ const { BinarySearchTree } = require("./DS");
 
 BinarySearchTree.prototype.insertWord = function (palabra) {
   // Tu código acá
+  let cuantasLetras = palabra.length;
+  let cuantasLetrasArbol = this.value.length;
 
+  if (
+    palabra === "" ||
+    cuantasLetrasArbol === cuantasLetras ||
+    palabra === this.value
+  ) {
+    return false;
+  }
 
-  
-
-
-
-
-
+  if (cuantasLetras < cuantasLetrasArbol) {
+    if (!this.left) this.left = new BinarySearchTree(palabra);
+    else this.left.insertWord(palabra);
+  } else if (cuantasLetras > cuantasLetrasArbol) {
+    if (!this.right) this.right = new BinarySearchTree(palabra);
+    else this.right.insertWord(palabra);
+  }
+  return palabra;
 };
 
 //⚠️ NO MODIFICAR NADA POR DEBAJO DE ESTA LÍNEA ⚠️

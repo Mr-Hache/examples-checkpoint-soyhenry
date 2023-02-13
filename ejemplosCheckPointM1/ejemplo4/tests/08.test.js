@@ -1,28 +1,30 @@
-const { LinkedList } = require("../checkpoint/08");
+const { BinarySearchTree } = require("../Checkpoint/08");
 
-xdescribe("Ejercicio 08 - LinkedList.sliceRooms()", () => {
-  test("Deberia devolver una nueva lista particionada a partir de los indices", () => {
-    const list = new LinkedList();
-    list.add("Cocina");
-    list.add("Dormitorio");
-    list.add("Baño");
-    list.add("Living");
-    list.add("Garage");
-    const slicedList = list.sliceRooms("Dormitorio", "Garage");
-    expect(slicedList).toBeInstanceOf(LinkedList);
-    expect(slicedList.head.value).toEqual("Baño");
-    expect(slicedList.head.next.value).toEqual("Living");
-  });
+const miArbol1 = new BinarySearchTree(17);
 
-  test("Deberia retornar false si no se encuentra ninguno de los índices en la lista", () => {
-    const list = new LinkedList();
-    list.add("Cocina");
-    list.add("Dormitorio");
-    list.add("Baño");
-    list.add("Living");
-    list.add("Garage");
-    expect(list.sliceRooms("Oficina", "Lavadero")).toEqual(false)
-    expect(list.sliceRooms("Cocina", "Lavadero")).toEqual(false)
-    expect(list.sliceRooms("Oficina", "Garage")).toEqual(false)
+miArbol1.insert(7);
+miArbol1.insert(24);
+miArbol1.insert(32);
+miArbol1.insert(18);
+miArbol1.insert(3);
+miArbol1.insert(15);
+miArbol1.insert(4);
+miArbol1.insert(45);
+
+const miArbol2 = new BinarySearchTree(89);
+
+miArbol2.insert(7);
+miArbol2.insert(28);
+miArbol2.insert(35);
+miArbol2.insert(20);
+miArbol2.insert(34);
+miArbol2.insert(84);
+miArbol2.insert(88);
+miArbol2.insert(55);
+
+describe("Ejercicio 08 - searchMax", () => {
+  test("La función debe retornar el número máximo dentro del árbol", () => {
+    expect(miArbol1.searchMax()).toEqual(45);
+    expect(miArbol2.searchMax()).toEqual(89);
   });
 });
