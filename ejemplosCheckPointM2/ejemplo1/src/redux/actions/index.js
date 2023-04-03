@@ -35,7 +35,6 @@ export const getAllTeams = () => async (dispatch) => {
 // export const getTeam = () => dispatch => {};
 export const getTeamDetail = (id) => async (dispatch) => {
   // Tu código acá
-
   let response = await axios.get(`http://localhost:3001/teams/${id}`);
   console.log(response);
 

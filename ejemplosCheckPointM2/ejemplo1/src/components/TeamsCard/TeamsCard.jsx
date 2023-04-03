@@ -24,7 +24,7 @@ export class TeamsCard extends Component {
             this.props.deleteTeam(this.props.id);
           }}
         ></button>
-        <Link to={"/teams/" + this.props.id}>
+        <Link to={`/teams/${this.props.id}`}>
           <h3>{this.props.name}</h3>
         </Link>
         <img src={this.props.image} />

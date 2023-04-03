@@ -35,6 +35,7 @@ export class Teams extends Component {
               name={team.name}
               base={team.base}
               image={team.image}
+              key={team.id}
             />
           );
         })}
