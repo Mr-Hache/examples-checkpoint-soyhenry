@@ -1,5 +1,5 @@
-const router = require('express').Router();
-const takeBook = require('../controllers/05-controller')
+const router = require("express").Router();
+const takeBook = require("../controllers/05-controller");
 // No modificar arriba de esta línea
 
 /*
@@ -12,22 +12,25 @@ const takeBook = require('../controllers/05-controller')
     - Recordá chequear el mensaje del error y devolver la respuesta dependiendo del mismo. 
 */
 
-router.get('/book/:id', (req, res) => {
-  const {id} = req.params
-  const {quantity} = req.query
+router.get("/book/:id", (req, res) => {
+  const { id } = req.params;
+  const { quantity } = req.query;
 
   try {
-    const take = takeBook(id, quantity)
-    res.status(200).json(take)
+    const book = takeBook(id, quantity);
+    res.status(200).json(book);
   } catch (error) {
-    if(error.message == ""){
-      
-    }
-    if(){
-
+    if (error.message == "La cantidad de libros solicitados supera el stock") {
+      res
+        .status(400)
+        .json({ message: "La cantidad solicitada supera el stock" });
+    } else if (error.message == "Libro no encontrado") {
+      res.status(404).json({ message: error.message });
+    } else {
+      res.status(400).json({ message: error.message });
     }
   }
-})
+});
 
 //No modificar nada debajo de esta linea
-module.exports = router
+module.exports = router;

@@ -20,16 +20,22 @@ const utils = require("../utils");
   */
 
 const addBook = (book) => {
-  for (let i = 0; i < book.length; i++) {
-    const bookExist = utils.books.find((bookEx) => bookEx.id == book[i].id);
-    if (bookExist) {
-      throw Error("ya esta el libro en la base de datos.");
-    } else {
-      utils.books.push(book[i]);
-    }
-  }
+  // ⚠️ No modificar nada arriba de esta línea
+  // Ojo que book es un array, sea de un libro o más.
+  const data = utils.books;
 
-  return utils.books;
+    book.forEach((element) => {
+      const { id } = element;
+      const verification = data.find((book) => book.id == id);
+
+      if (!verification) {
+        data.push(element);
+    
+      } else {
+        throw Error("ya esta el libro en la base de datos.");
+      }
+    });
+  return data;
 };
 
 // ⚠️ No modificar nada debajo de esta línea ⚠️

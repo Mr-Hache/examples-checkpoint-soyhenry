@@ -27,26 +27,19 @@ const utils = require("../utils");
    */
 const classifyBooks = () => {
   // ⚠️ No modificar nada arriba de esta línea ⚠️
-  if (!utils.books.length) {
-    throw Error("No hay libros disponibles");
-  }
-  const geners = [];
-  const objGeners = {};
-  genersFilter = [];
-  for (let i = 0; i < utils.books.length; i++) {
-    geners.push(utils.books[i].genre);
-  }
-  geners.forEach(function (item) {
-    if (!genersFilter.includes(item)) {
-      genersFilter.push(item);
-    }
-  });
-  for (let i = 0; i < genersFilter.length; i++) {
-    const bookFG = utils.books.filter((book) => book.genre == genersFilter[i]);
-    objGeners[genersFilter[i]] = bookFG;
-  }
 
-  return objGeners;
+  if (utils.books.length == 0) {
+    throw new Error("No hay libros disponibles");
+  }
+  const books = utils.books;
+  const genres = books.map((book) => book.genre);
+  const uniqueGenres = [...new Set(genres)];
+  const booksByGenre = {};
+
+  uniqueGenres.forEach((genre) => {
+    booksByGenre[genre] = books.filter((book) => book.genre === genre);
+  });
+  return booksByGenre;
 };
 
 //⚠️ No modificar nada debajo de esta línea ⚠️

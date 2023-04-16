@@ -12,10 +12,9 @@ const listBooks = require('../controllers/02-controller');
 */
 
  router.get('/books', (req, res) => {
-  const {book} = req.query
-  let books;
+
   try {
-    books = listBooks(book)
+    const books = listBooks();
     res.status(200).json(books);
   } catch (error) {
     res.status(400).json({ err: error.message });

@@ -1,5 +1,5 @@
-const router = require('express').Router();
-const classifyBooks = require('../controllers/06-controller')
+const router = require("express").Router();
+const classifyBooks = require("../controllers/06-controller");
 // No modificar arriba de esta línea
 
 /*
@@ -11,12 +11,20 @@ const classifyBooks = require('../controllers/06-controller')
     - Si algo falla al obtener los libros, debes responder con el status code pedido en el test con el mensaje del error!
 */
 
-router.get('/books/classified', (req, res) => {
-const {book} = req.body;
-requesDate
+router.get("/books/classified", (req, res) => {
+  try {
+    const books = classifyBooks();
+    const requestDate = new Date().toLocaleDateString();
 
-
-})
+    res.status(200).json({
+      books, requestDate
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+});
 
 // No modificar nada debajo de esta línea
 module.exports = router;

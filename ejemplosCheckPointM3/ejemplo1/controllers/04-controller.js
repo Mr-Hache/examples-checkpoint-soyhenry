@@ -16,12 +16,12 @@ const utils = require("../utils");
     */
 
 const deleteBook = (id) => {
-  // ⚠️ No modificar nada arriba de esta línea ⚠️
-  const deleteBook = utils.books.find((bookDe) => bookDe.id === id);
-  if (!deleteBook) {
-    throw Error(`no existe el libro con id: ${id}`);
+
+  const book = utils.books.find(book => book.id === id);
+  if (!book) {
+    throw new Error(`no existe el libro con id: ${id}`);
   }
-  utils.books = utils.books.filter((book) => book.id !== id);
+  utils.books = utils.books.filter(book => book.id !== id);
   return utils.books;
 };
 

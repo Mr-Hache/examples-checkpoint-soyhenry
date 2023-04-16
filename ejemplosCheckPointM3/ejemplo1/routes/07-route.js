@@ -13,13 +13,15 @@ const addBook = require('../controllers/01-controller')
 */
 
  router.post('/books', (req, res) => {
-try {
-  const {book} = req.body
-  const books = addBook(book);
-  res.status(201).json({msg: books });
-} catch (error) {
-  res.status(400).json({ err: error.message });
-}
+  const { book } = req.body;
+  try {
+    const data = addBook(book);
+    res.status(201).json({msg: data})
+  }
+  catch (error) {
+    res.status(400).json({err: error.message})
+  }
+
 
  })
 

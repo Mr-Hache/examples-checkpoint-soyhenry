@@ -16,18 +16,19 @@ const utils = require("../utils");
   */
 const takeBook = (id, quantity) => {
   // ⚠️ No modificar nada arriba de esta línea ⚠️
-  if (quantity === 5) throw new Error("La cantidad solicitada supera el stock");
-  if (!quantity) throw new Error("Cantidad requerida");
-  const book = utils.books.find((b) => b.id === id);
-  if (!book) throw new Error("Libro no encontrado");
-  if (book.stock < quantity)
+
+  if (!quantity) {
+    throw new Error("Cantidad requerida");
+  } else if (!utils.books.find((book) => book.id == id)) {
+    throw new Error("Libro no encontrado");
+  } else if (quantity > utils.books.find((book) => book.id == id).stock) {
     throw new Error("La cantidad de libros solicitados supera el stock");
-  const returnDate = new Date().toLocaleDateString();
-  return {
-    book,
-    returnDate,
-  };
-}; 
+  } else {
+    const book = utils.books.find((book) => book.id == id);
+    const returnDate = new Date().toLocaleDateString();
+    return { book, returnDate };
+  }
+};
 
 // ⚠️ No modificar nada debajo de esta línea ⚠️
 module.exports = takeBook;

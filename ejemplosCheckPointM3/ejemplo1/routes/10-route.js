@@ -14,15 +14,17 @@ const deleteBook = require("../controllers/04-controller");
 */
 
 router.delete("/books", (req, res) => {
-const {id} = req.body;
-try {
-  deleteBook(id)
-  res.status(200).json({message: `El libro con el id ${id} fue eliminado correctamente`});
-} catch (error) {
-  res.status(400).json({error: error.message});
-}
-
-
+  const { id } = req.body;
+  try {
+    deleteBook(id);
+    res
+      .status(200)
+      .json({
+        message: `El libro con el id ${id} fue eliminado correctamente`,
+      });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 // No modificar nada debajo de esta línea

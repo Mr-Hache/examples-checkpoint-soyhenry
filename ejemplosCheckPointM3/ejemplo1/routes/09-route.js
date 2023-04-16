@@ -14,14 +14,14 @@ const findBook = require("../controllers/03-controller");
 */
 
 router.put("/books", (req, res) => {
-
 const {book} = req.body;
-try {
-  findBook(book);
-  res.status(200).json({message: "Libro actualizado correctamente"});
-} catch (error) {
-  res.status(400).json({ error: error.message })
-}
+  try {
+    findBook(book);
+    res.status(200).json({message: "Libro actualizado correctamente"});
+  }
+  catch (error) {
+    res.status(400).json({error: error.message});
+  }
 
 });
 
